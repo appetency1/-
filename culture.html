@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京剧脸谱 - 文化起源与发展</title>
+  <!-- 外部资源 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- 自定义配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c8102e', // 京剧红
+            ink: '#1a1a1a',
+            paper: '#f8f5f0',
+            gold: '#d4af37',
+          },
+          fontFamily: {
+            sans: ['Noto Sans SC', 'sans-serif'],
+            display: ['Ma Shan Zheng', 'cursive'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+      .timeline-line {
+        @apply absolute left-1/2 top-0 bottom-0 w-1 bg-primary/30 transform -translate-x-1/2 z-0;
+      }
+      .timeline-dot {
+        @apply absolute left-1/2 w-6 h-6 rounded-full bg-primary border-4 border-paper transform -translate-x-1/2 z-10;
+      }
+      .hover-lift {
+        @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-xl;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="CSS/culture.css">
+</head>
+
+<body class="bg-paper text-ink font-sans">
+  <!-- 全局动态背景（新增） -->
+   <div class="global-bg"></div>
+  <!-- 导航栏 -->
+  <nav class="fixed w-full bg-ink/95 text-white z-50 transition-all duration-300" id="mainNav">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-display tracking-wider hover:text-gold transition-colors">京剧脸谱</a>
+      <ul class="hidden md:flex space-x-8">
+        <li><a href="index.html" class="hover:text-primary transition-colors">首页</a></li>
+        <li><a href="culture.html" class="text-primary border-b-2 border-primary pb-1">文化概述</a></li>
+        <li><a href="gallery.html" class="hover:text-primary transition-colors">经典图鉴</a></li>
+        <li><a href="diy.html" class="hover:text-primary transition-colors">DIY体验</a></li>
+        <li><a href="index.html#face-ring" class="hover:text-primary transition-colors">脸谱流派</a></li>
+      </ul>
+      <button class="md:hidden text-white text-xl" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-ink/95 absolute w-full">
+      <ul class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <li><a href="index.html" class="block py-2 hover:text-primary transition-colors">首页</a></li>
+        <li><a href="culture.html" class="block py-2 text-primary">文化概述</a></li>
+        <li><a href="gallery.html" class="block py-2 hover:text-primary transition-colors">经典图鉴</a></li>
+        <li><a href="diy.html" class="block py-2 hover:text-primary transition-colors">DIY体验</a></li>
+        <li><a href="index.html#face-ring" class="block py-2 hover:text-primary transition-colors">脸谱流派</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="images/culture-hero.jpg" alt="京剧脸谱历史" class="w-full h-full object-cover opacity-40">
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/70 to-ink/40"></div>
+    </div>
+    <div class="container mx-auto px-4 z-10 text-center">
+      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-display text-white mb-6 text-shadow leading-tight">
+        脸谱千年演变史
+      </h1>
+      <p class="text-[clamp(1rem,3vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+        从远古傩戏到京剧巅峰，一张脸谱承载着中国传统戏曲的千年密码
+      </p>
+      <a href="#timeline" class="inline-block animate-bounce" id="scrollDown">
+        <i class="fas fa-chevron-down text-white text-3xl"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- 时间轴主体 -->
+  <section id="timeline" class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-20">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display mb-4">脸谱的演变历程</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">沿着时间脉络，探寻京剧脸谱从雏形到成熟的精彩历程</p>
+      </div>
+
+      <!-- 时间轴中心线 -->
+      <div class="timeline-line"></div>
+
+      <!-- 时间点1：远古傩戏（先秦时期） -->
+      <div class="timeline-item mb-32 relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="text-container pre-qin-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                先秦时期（约公元前2070年-公元前221年）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">傩戏面具：脸谱雏形</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                远古时期，"傩戏"作为驱邪祈福的仪式表演，舞者佩戴木质或青铜面具，这是脸谱最早的形态。面具造型夸张，色彩鲜明，已具备"以形表意"的特征。
+              </p>
+              <div class="flex justify-end space-x-4">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">驱邪功能</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">宗教属性</span>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="relative group">
+                <img src="images/timeline-nuo.jpg" alt="傩戏面具" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    山西侯马出土的先秦傩戏面具，现存于国家博物馆
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间点2：唐代面谱（唐代） -->
+      <div class="timeline-item mb-32 relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 order-1">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="relative group">
+                <img src="images/timeline-tang.jpg" alt="唐代面谱" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    唐代《兰陵王》剧照，演员佩戴"代面"面具表演
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-2 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="text-container tang-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                唐代（公元618年-907年）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">"代面"与"染面"的兴起</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                唐代戏曲成熟，出现"代面"（面具）和"染面"（直接面部彩绘）两种形式。《兰陵王》中，演员佩戴假面表现武将英姿；而民间歌舞则开始用色彩直接在面部勾勒，为后世脸谱奠定基础。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">假面表演</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">面部彩绘</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">歌舞融合</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间点3：宋元杂剧（宋元时期） -->
+      <div class="timeline-item mb-32 relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="text-container song-yuan-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                宋元时期（公元960年-1368年）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">杂剧脸谱的规范化</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                宋元杂剧繁荣，脸谱从简单彩绘发展为有固定程式的化妆艺术。不同角色（生旦净丑）开始有明确的面部色彩区分，如净角多用红色表示忠勇，白色表示奸邪，初步形成"色彩寓意"体系。
+              </p>
+              <div class="flex justify-end space-x-4">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">程式化</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">角色区分</span>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="relative group">
+                <img src="images/timeline-songyuan.jpg" alt="宋元杂剧" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    山西洪洞元代杂剧壁画中的脸谱形象
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间点4：明代昆曲（明代） -->
+      <div class="timeline-item mb-32 relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 order-1">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="relative group">
+                <img src="images/timeline-ming.jpg" alt="明代昆曲" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    明代昆曲《牡丹亭》中的脸谱造型
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-2 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="text-container ming-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                明代（公元1368年-1644年）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">昆曲推动脸谱精细化</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                明代昆曲鼎盛，脸谱工艺进一步精细化。不仅色彩寓意固定，更发展出"揉、勾、抹、破"等多种绘制技法，线条更加流畅，图案更具装饰性，形成了"花脸"（净角）的独特风格。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">技法成熟</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">装饰性增强</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间点5：清代京剧（清代） -->
+      <div class="timeline-item mb-32 relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="text-container qing-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                清代（公元1636年-1912年）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">京剧脸谱的成熟巅峰</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                清代京剧形成并成为国剧，脸谱艺术达到巅峰。形成了"整脸、三块瓦脸、十字门脸"等固定谱式，色彩与图案严格对应角色性格，同时诞生了钱派、郝派等多个脸谱流派，风格各异。
+              </p>
+              <div class="flex justify-end space-x-4">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">体系完善</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">流派诞生</span>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="relative group">
+                <img src="images/timeline-qing.jpg" alt="清代京剧" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    清代京剧《长坂坡》赵云脸谱，现藏于故宫博物院
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间点6：现代传承（当代） -->
+      <div class="timeline-item relative">
+        <div class="timeline-dot top-10"></div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 md:pr-12 order-1">
+            <div class="reveal-item opacity-0 translate-y-8">
+              <div class="relative group">
+                <img src="images/timeline-modern.jpg" alt="现代传承" class="w-full h-[300px] object-cover rounded-lg shadow-lg hover-lift">
+                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <p class="text-white text-lg font-medium px-4 text-center">
+                    当代京剧演员传承脸谱技艺，2006年被列入国家级非遗
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-12 order-2 mt-8 md:mt-0">
+            <div class="reveal-item opacity-0 translate-y-8 delay-100">
+              <div class="text-container modern-theme">
+              <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">
+                当代（1912年至今）
+              </span>
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display mb-4">非遗保护与创新发展</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                京剧脸谱被列入国家级非物质文化遗产，通过数字化保护、进校园、创新设计等方式传承。现代艺术家在传统基础上融入新元素，使这一古老艺术在当代焕发新活力。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">非遗保护</span>
+                <span class="px-3 py-1 bg-ink/10 rounded-full text-sm">创新传承</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="main-footer bg-ink text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="footer-content text-center">
+        <div class="footer-info mb-6">
+          <h3 class="text-2xl font-display text-gold mb-2">京剧脸谱文化展示</h3>
+          <p class="text-gray-400">探索千年脸谱艺术，传承中华文化精髓</p>
+        </div>
+        <div class="footer-links flex flex-wrap justify-center gap-6 mb-8">
+          <a href="index.html" class="text-gray-300 hover:text-primary transition-colors">首页</a>
+          <a href="culture.html" class="text-primary">文化概述</a>
+          <a href="gallery.html" class="text-gray-300 hover:text-primary transition-colors">经典图鉴</a>
+          <a href="diy.html" class="text-gray-300 hover:text-primary transition-colors">DIY体验</a>
+        </div>
+        <div class="copyright text-gray-500 text-sm">
+          &copy; 2025 京剧脸谱文化展示 | 所有内容仅供学习交流
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="JavaScript/culture.js"></script>
+</body>
+</html>

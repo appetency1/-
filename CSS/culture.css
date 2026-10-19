@@ -1,0 +1,260 @@
+/* 基础动画定义 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+/* 基础文字容器：毛玻璃+圆角+内边距 */
+.text-container {
+  /* 毛玻璃核心：半透明背景+模糊+ backdrop-filter */
+  background-color: rgba(248, 245, 240, 0.85); /* 米白半透明，呼应页面主色调 */
+  backdrop-filter: blur(6px); /* 模糊背景，毛玻璃质感（兼容性良好） */
+  -webkit-backdrop-filter: blur(6px); /* 兼容Safari */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  /* 过渡动画：hover和滚动时的动态效果 */
+  transition: all 0.5s ease;
+  /* 文字基础样式：高对比度，避免背景干扰 */
+  color: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 容器伪元素：阶段主题色渐变边框（新颖感+主题呼应） */
+.text-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  /* 渐变边框核心：利用background-clip */
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+/* 滚动动画：与原有reveal-item联动，浮现效果 */
+.reveal-item.active .text-container {
+  transform: scale(1.02); /* 滚动到视图时轻微放大，突出焦点 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* hover交互：强化反馈，突出当前阅读区域 */
+.text-container:hover {
+  background-color: rgba(248, 245, 240, 0.95); /* hover时背景更实，减少干扰 */
+  transform: translateY(-5px); /* 轻微上移，交互感明显 */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* hover时主题色边框发光 */
+.text-container:hover::before {
+  border-width: 3px; /* 边框变粗 */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 标题文字：主题色渐变填充（新颖感+呼应阶段） */
+.text-container h3 {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; /* 文字透明，显示渐变背景 */
+  transition: all 0.5s ease;
+}
+
+/* hover时标题渐变更明显 */
+.text-container:hover h3 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* --------------- 各阶段主题色具体配置 --------------- */
+/* 先秦：青铜色渐变 */
+.pre-qin-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #b87333, #d4b483);
+}
+.pre-qin-theme h3 {
+  background-image: linear-gradient(90deg, #b87333, #8c5a2b);
+}
+
+/* 唐代：朱红色渐变（呼应京剧红） */
+.tang-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #c8102e, #e63946);
+}
+.tang-theme h3 {
+  background-image: linear-gradient(90deg, #c8102e, #9b2226);
+}
+
+/* 宋元：赭石色渐变 */
+.song-yuan-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #8c5a2b, #a67c52);
+}
+.song-yuan-theme h3 {
+  background-image: linear-gradient(90deg, #8c5a2b, #6d4c2f);
+}
+
+/* 明代：绛紫色渐变 */
+.ming-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #9b2226, #b91c1c);
+}
+.ming-theme h3 {
+  background-image: linear-gradient(90deg, #9b2226, #7f1d1d);
+}
+
+/* 清代：明黄色渐变（脸谱金色） */
+.qing-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #d4af37, #facc15);
+}
+.qing-theme h3 {
+  background-image: linear-gradient(90deg, #d4af37, #b45309);
+}
+
+/* 当代：靛蓝色渐变（现代感） */
+.modern-theme::before {
+  background-image: linear-gradient(to right, #f8f5f0, #f8f5f0), 
+                    linear-gradient(90deg, #2b5b84, #3b82f6);
+}
+.modern-theme h3 {
+  background-image: linear-gradient(90deg, #2b5b84, #1e40af);
+}
+
+/* --------------- 响应式适配 --------------- */
+@media (min-width: 768px) {
+  .text-container {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-container {
+    padding: 1.25rem;
+    backdrop-filter: blur(4px); /* 移动端模糊度降低，性能更好 */
+  }
+  .text-container:hover {
+    transform: translateY(-3px); /* 移动端上移幅度减小，避免遮挡 */
+  }
+}
+/* 1. 全局背景基础样式 */
+.global-bg {
+  position: fixed; /* 固定在屏幕，不随滚动移动 */
+  top: 0;
+  left: 0;
+  width: 100vw; /* 占满屏幕宽度 */
+  height: 100vh; /* 占满屏幕高度 */
+  z-index: -1; /* 置于所有内容下方，避免遮挡文字/图片 */
+  background-size: cover; /* 背景图铺满屏幕，保持比例 */
+  background-position: center; /* 背景图居中显示 */
+  transition: background-image 1.2s ease; /* 背景切换平滑过渡（1.2秒） */
+  opacity: 0.7; /* 降低透明度，避免干扰前景内容（可根据需求调整） */
+}
+
+/* 2. 各时间轴阶段的专属背景图（与JS中类名对应） */
+/* 先秦：建议用“古朴傩戏面具/青铜纹样”风格图片 */
+.global-bg.pre-qin {
+  background-image: url('../images/bg-pre-qin.jpg');
+}
+/* 唐代：建议用“宫廷乐舞/敦煌壁画”风格图片 */
+.global-bg.tang {
+  background-image: url('../images/bg-tang.jpg');
+}
+/* 宋元：建议用“杂剧舞台/古画戏曲场景”风格图片 */
+.global-bg.song-yuan {
+  background-image: url('../images/bg-song-yuan.jpg');
+}
+/* 明代：建议用“昆曲服饰/明代戏台”风格图片 */
+.global-bg.ming {
+  background-image: url('../images/bg-ming.jpg');
+}
+/* 清代：建议用“京剧戏班/清代宫廷戏台”风格图片 */
+.global-bg.qing {
+  background-image: url('../images/bg-qing.jpg');
+}
+/* 当代：建议用“非遗展览/现代脸谱创作”风格图片 */
+.global-bg.modern {
+  background-image: url('../images/bg-modern.jpg');
+}
+
+/* 3. 响应式适配（确保移动端背景显示正常） */
+@media (max-width: 768px) {
+  .global-bg {
+    opacity: 0.12; /* 移动端可稍降透明度，避免与小屏文字冲突 */
+  }
+  /* 拆解嵌套的@media，合并到同一层级 */
+  .timeline-line {
+    left: 30px !important;
+  }
+  .timeline-dot {
+    left: 30px !important;
+  }
+  .timeline-item .md\:w-1\/2 {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 0;
+    text-align: left;
+  }
+  .timeline-item img {
+    height: 220px !important;
+  }
+  .timeline-item .flex.justify-end {
+    justify-content: flex-start !important;
+  }
+}
+
+/* 时间轴滚动动画 */
+.reveal-item {
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal-item.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.reveal-item.active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 导航栏滚动效果 */
+.nav-scrolled {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  background-color: rgba(26, 26, 26, 0.98) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 图片加载过渡 */
+img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+img.loaded {
+  opacity: 1;
+}

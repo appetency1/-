@@ -1,0 +1,822 @@
+/* 基础样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+/* 全局变量 */
+:root {
+  --primary-red: #c8102e; /* 京剧红 */
+  --ink-black: #1a1a1a;   /* 墨黑 */
+  --paper-white: #f8f5f0; /* 宣纸白 */
+  --gold: #d4af37;        /* 金色 */
+  --gray: #666666;        /* 灰色 */
+}
+
+body {
+  background-color: var(--paper-white);
+  color: var(--ink-black);
+  line-height: 1.6;
+  padding-top: 65px; /* 避免内容被导航栏遮挡 */
+}
+
+/* 容器样式 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 导航栏样式 */
+.main-nav {
+  background-color: var(--ink-black);
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--paper-white);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Ma Shan Zheng', cursive; /* 书法字体 */
+  letter-spacing: 2px;
+}
+
+.logo:hover {
+  color: var(--gold);
+  transition: color 0.3s ease;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 30px;
+}
+
+.nav-links a {
+  color: var(--paper-white);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 0;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-red);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--primary-red);
+}
+
+/* Banner区域样式 */
+.banner {
+  height: calc(100vh - 65px); /* 减去导航栏高度 */
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-size: cover; /* 背景图自适应 */
+  background-position: center;
+  transition: opacity 1.5s ease-in-out; /* 淡入淡出过渡 */
+}
+
+.banner-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5); /* 暗化背景突出文字 */
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+  z-index: 2;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--paper-white);
+  padding: 0 20px;
+}
+
+.banner-content h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-family: 'Ma Shan Zheng', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 1s ease-out;
+}
+
+.banner-content p {
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.banner-btns {
+  display: flex;
+  gap: 20px;
+  animation: fadeInUp 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+/* 按钮样式 */
+.btn-primary, .btn-secondary {
+  padding: 12px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-red);
+  color: white;
+  border: 2px solid var(--primary-red);
+}
+
+.btn-primary:hover {
+  background-color: #a00c23;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(200, 16, 46, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+/* 滚动指示 */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: white;
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+/* 文化简介区域 */
+.intro-section {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/intro-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.intro-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.intro-text {
+  flex: 1 1 500px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  color: var(--ink-black);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--primary-red);
+}
+
+.intro-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+}
+
+.intro-image {
+  flex: 1 1 400px;
+  position: relative;
+}
+
+.intro-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gray);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* 特色板块 */
+.features-section {
+  background-color: var(--paper-white);
+  /* 新增背景图设置 */
+  background-image: url("../images/features-bg.jpg"); /* 图片路径 */
+  background-size: cover; /* 图片自适应容器 */
+  background-position: center; /* 图片居中 */
+  background-attachment: fixed; /* 可选：滚动时背景固定，增强沉浸感 */
+  background-repeat: no-repeat; /* 不重复平铺 */
+  padding: 100px 0; /* 保持原有内边距，避免内容紧贴边缘 */
+}
+.feature-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 0 !important; /* 强制清除内边距 */
+  border: none !important; /* 去掉可能的边框 */
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* 新增3D核心属性 */
+  position: relative; /* 必须：作为子元素（正面/背面）的定位基准 */
+  transform-style: preserve-3d; /* 必须：让子元素继承3D空间 */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s; 
+  cursor: pointer; /* 新增：提示可交互 */
+  /* 删掉原有冲突的transform和transition */
+}
+/* 卡片正面图片样式 */
+.card-img {
+  width: 100% !important; /* 强制宽度100% */
+  height: 100% !important; /* 强制高度100% */
+  object-fit: cover; /* 裁剪多余部分，不拉伸 */
+  display: block;
+  border-radius: 10px; /* 保持卡片圆角 */
+}
+
+/* 调整正面容器样式（移除内边距，避免图片有间隙） */
+.card-front {
+  padding: 0; /* 清除内边距 */
+  overflow: hidden; /* 隐藏超出卡片的部分 */
+  border-radius: 10px; /* 保持卡片圆角 */
+}
+
+/* 可选：给图片添加轻微hover放大效果，增强交互感 */
+.card-front:hover .card-img {
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
+}
+.feature-card:hover {
+   transform: rotateY(180deg); /* 新增：沿Y轴翻转180度，显示背面 */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* 可选：增强翻转后的阴影 */
+}
+/* 新增：卡片正面样式 */
+.card-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  backface-visibility: hidden; /* 必须：隐藏背面，避免翻转时穿透 */
+  -webkit-backface-visibility: hidden; /* 兼容Safari */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 新增：垂直居中内容，避免偏移 */
+  align-items: center; /* 新增：水平居中内容 */
+}
+
+/* 新增：卡片背面样式 */
+.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 40px 30px;
+  background-color: rgba(255, 255, 255, 0.95); /* 背面背景略深，增强区分度 */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg); /* 必须：初始翻转180度，默认隐藏 */
+}
+
+/* 保留背面内容样式（色彩点、列表等），无需修改 */
+.back-content {
+  list-style: none;
+  text-align: left;
+  margin: 20px 0;
+  line-height: 2;
+  width: 100%; /* 新增：让列表占满宽度，避免偏左 */
+}
+.red-dot, .white-dot, .black-dot, .blue-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+/* 在.red-dot, .white-dot...定义下方添加 */
+.red-dot { background-color: var(--primary-red); }
+.white-dot { background-color: #fff; border: 1px solid #ddd; } /* 白色加边框避免与背景融合 */
+.black-dot { background-color: var(--ink-black); }
+.blue-dot { background-color: #1e50b3; }
+.card-back h3 {
+  color: var(--primary-red);
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background-color: rgba(200, 16, 46, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-red);
+  font-size: 2rem;
+  transition: transform 0.3s ease; /* 图标过渡 */
+}
+/* 按卡片顺序添加主题边框 */
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--ink-black);
+}
+
+.feature-card p {
+  color: var(--gray);
+  margin-bottom: 25px;
+  line-height: 1.7;
+}
+
+.feature-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-red);
+  text-decoration: none;
+  justify-content: center;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  margin-top: 20px;
+  position: relative;
+}
+
+.feature-link i {
+  transition: transform 0.3s ease;
+}
+.feature-link:hover {
+  color: #a00c23;
+}
+
+.feature-link i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+/* 环形模块容器 */
+.face-ring-section {
+  padding: 80px 0;
+  background-color: #f8f5f0;
+  background-image: url('../images/face-ring-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 环形容器：作为定位基准 */
+.face-ring-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 700px;
+  margin: 0 auto;
+  margin-top: -50px; /* 整体上移调整 */
+}
+
+/* 中心脸谱 */
+.ring-center {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 精准居中 */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* 置于环形项上方 */
+}
+
+.center-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 环形轨道容器（承载5个小脸谱并旋转） */
+.ring-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; /* 轨道直径（控制距离中心的远近） */
+  height: 600px;
+  border-radius: 50%; /* 圆形轨道 */
+}
+
+/* 环形脸谱（小脸谱）样式 */
+.ring-item {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%); /* 自身中心点对齐轨道 */
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+/* 5个小脸谱在轨道上的均匀分布（间隔72°） */
+.ring-item:nth-child(1) { top: 2%; left: 50%; } /* 顶部 */
+.ring-item:nth-child(2) { top: 25%; left: 85%; } /* 右上 */
+.ring-item:nth-child(3) { top: 70%; left: 75%; } /* 右下 */
+.ring-item:nth-child(4) { top: 70%; left: 25%; } /* 底部 */
+.ring-item:nth-child(5) { top: 25%; left: 15%; } /* 左上 */
+
+/* 脸谱图片样式 */
+.ring-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 标签样式 */
+.ring-label {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: var(--primary-red);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* 悬停效果：仅放大+显示标签，不旋转 */
+.ring-item:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 15; /* 悬停时置于中心图上方 */
+}
+
+.ring-item:hover .ring-label {
+  opacity: 1;
+}
+
+/* 轨道逆时针旋转动画 */
+@keyframes orbitRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(-360deg); } /* 负角度实现逆时针 */
+}
+
+/* 详情弹窗 */
+.face-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  color: var(--primary-red);
+  font-size: 1.8rem;
+  transition: color 0.3s;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.close-btn:hover {
+  color: #a00c23;
+}
+
+.modal-content h3 {
+  color: var(--ink-black);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.modal-img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+#modalDesc {
+  text-align: left;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 页脚样式 */
+.main-footer {
+  background-color: var(--ink-black);
+  color: white;
+  padding: 60px 0 30px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-info {
+  margin-bottom: 30px;
+}
+
+.footer-info h3 {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: var(--gold);
+}
+
+.footer-info p {
+  color: #ccc;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-red);
+}
+
+.copyright {
+  color: #999;
+  font-size: 0.9rem;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  width: 100%;
+}
+
+/* 动画定义 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-20px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .banner-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .banner-content p {
+    font-size: 1.2rem;
+  }
+  
+  .section-title h2 {
+    font-size: 2rem;
+  }
+  
+  .nav-links li {
+    margin-left: 15px;
+  }
+  
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+
+  /* 环形模块响应式 */
+  .face-ring-container {
+    width: 400px;
+    height: 400px;
+    margin-top: -80px;
+  }
+  
+  .ring-orbit {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .ring-item {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .face-ring-container {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .ring-orbit {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .ring-item {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .ring-label {
+    font-size: 0.8rem;
+    bottom: -25px;
+  }
+
+  .main-nav .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .banner-btns {
+    flex-direction: column;
+    width: 80%;
+  }
+  .features-grid {grid-template-columns: 1fr;
+}
+}
+/* 图片加载样式 */
+.ring-img, .center-img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.ring-img.loaded, .center-img.loaded {
+  opacity: 1;
+}
+
+/* 背景图切换动画 */
+.banner-bg.fade-out {
+  opacity: 0;
+}
+
+.banner-bg.fade-in {
+  opacity: 1;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  perspective: 1200px; /* 全局3D透视，必须保留 */
+}

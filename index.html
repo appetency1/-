@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京剧脸谱 - 传承千年的面部艺术</title>
+  <!-- 外部资源 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="CSS/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="main-nav">
+    <div class="container">
+      <a href="index.html" class="logo">京剧脸谱</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">首页</a></li>
+        <li><a href="culture.html">文化概述</a></li>
+        <li><a href="Guide.html">经典图鉴</a></li>
+        <li><a href="diy.html">DIY体验</a></li>
+        <li><a href="#face-ring">脸谱流派</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Banner区域 -->
+  <section class="banner">
+    <div class="banner-bg"></div>
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <h1>京剧脸谱</h1>
+      <p>方寸之间勾勒忠奸善恶，五色斑斓演绎千年故事</p>
+      <div class="banner-btns">
+        <a href="culture.html" class="btn-primary">探索文化</a>
+        <a href="diy.html" class="btn-secondary">开始创作</a>
+      </div>
+    </div>
+    <!-- 向下滚动指示 -->
+    <div class="scroll-indicator">
+      <i class="fas fa-angle-down"></i>
+    </div>
+  </section>
+
+  <!-- 文化简介区域 -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>脸谱艺术简介</h2>
+      </div>
+      <div class="intro-content">
+        <div class="intro-text">
+          <p>京剧脸谱是中国传统戏曲中独具特色的化妆艺术，被誉为"面部的百科全书"。它通过夸张的色彩、图案和线条，直观展现角色的性格、身份与善恶。</p>
+          <p>脸谱的起源可追溯至唐代的"代面"，经过千年发展，在清代京剧成熟后形成完整体系。不同色彩代表不同性格：红色象征忠义耿直（如关羽），白色代表阴险狡诈（如曹操），黑色体现刚正不阿（如包拯）。</p>
+          <p>作为国家级非物质文化遗产，京剧脸谱不仅是舞台上的艺术，更是中国传统文化的重要符号，承载着古人对人性与社会的深刻理解。</p>
+        </div>
+        <div class="intro-image">
+          <img src="images/intro-bg1.jpg" alt="经典京剧脸谱">
+          <div class="image-caption">京剧脸谱融合了绘画、雕塑与戏剧美学</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特色板块 -->
+  <!-- 特色板块 -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>探索脸谱世界</h2>
+    </div>
+    <div class="features-grid">
+  <!-- 卡片1：色彩寓意 -->
+  <div class="feature-card">
+    <!-- 正面：纯图片 -->
+    <div class="card-front">
+      <img src="images/feature-color.jpg" alt="色彩寓意" class="card-img">
+    </div>
+    <!-- 背面：介绍文字 -->
+    <div class="card-back">
+      <h3>色彩密码</h3>
+      <ul class="back-content">
+        <li><span class="red-dot"></span> 红色：忠义耿直（关羽）</li>
+        <li><span class="white-dot"></span> 白色：阴险狡诈（曹操）</li>
+        <li><span class="black-dot"></span> 黑色：刚正不阿（包拯）</li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- 卡片2：经典图鉴 -->
+  <div class="feature-card">
+    <div class="card-front">
+      <img src="images/feature-classic.jpg" alt="经典图鉴" class="card-img">
+    </div>
+    <div class="card-back">
+      <h3>经典角色</h3>
+      <ul class="back-content">
+        <li>• 关羽：红脸忠义代表</li>
+        <li>• 曹操：白脸奸雄典型</li>
+        <li>• 包拯：黑脸公正象征</li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- 卡片3：互动体验 -->
+  <div class="feature-card">
+    <div class="card-front">
+      <img src="images/feature-diy.jpg" alt="互动体验" class="card-img">
+    </div>
+    <div class="card-back">
+      <h3>创作步骤</h3>
+      <ul class="back-content">
+        <li>1. 选择角色轮廓模板</li>
+        <li>2. 调配脸谱基础色彩</li>
+        <li>3. 绘制花纹与细节</li>
+      </ul>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+  <!-- 新增的交互式环形模块 -->
+<section class="face-ring-section" id="face-ring">
+  <div class="container">
+    <div class="section-title">
+      <h2>京剧脸谱流派</h2>
+      <p>不同流派的艺术家对脸谱的独特诠释</p>
+    </div>
+    <div class="face-ring-container">
+      <!-- 中心脸谱（通用代表） -->
+      <div class="ring-center">
+        <img src="images/face-center.jpg" alt="京剧脸谱通用代表" class="center-img">
+      </div>
+      <!-- 环形脸谱项（按流派分类） -->
+       <div class="ring-orbit">
+      <div class="ring-item" data-category="qian">
+        <img src="images/face-qian.jpg" alt="钱派脸谱" class="ring-img">
+        <div class="ring-label">钱派</div>
+      </div>
+      <div class="ring-item" data-category="hao">
+        <img src="images/face-hao.jpg" alt="郝派脸谱" class="ring-img">
+        <div class="ring-label">郝派</div>
+      </div>
+      <div class="ring-item" data-category="hou">
+        <img src="images/face-hou.jpg" alt="侯派脸谱" class="ring-img">
+        <div class="ring-label">侯派</div>
+      </div>
+      <div class="ring-item" data-category="qiu">
+        <img src="images/face-qiu.jpg" alt="裘派脸谱" class="ring-img">
+        <div class="ring-label">裘派</div>
+      </div>
+      <div class="ring-item" data-category="jin">
+        <img src="images/face-jin.jpg" alt="金派脸谱" class="ring-img">
+        <div class="ring-label">金派</div>
+        </div>
+      </div>
+    </div>
+    <!-- 详情弹窗 -->
+    <div class="face-modal" id="faceModal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 id="modalTitle">脸谱流派详情</h3>
+        <img id="modalImg" src=""alt="脸谱详情图" class="modal-img">
+        <p id="modalDesc">这里将展示该流派的详细介绍...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- 页脚 -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>京剧脸谱文化展示</h3>
+          <p>毕业设计 | 传承传统文化，弘扬京剧艺术</p>
+        </div>
+        <div class="footer-links">
+          <a href="culture.html">文化起源</a>
+          <a href="gallery.html">脸谱图鉴</a>
+          <a href="diy.html">DIY体验</a>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 京剧脸谱展示网站 | 所有图片仅供学习使用</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 引入JavaScript -->
+  <script src="JavaScript/common.js"></script>
+</body>
+</html>

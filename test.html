@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>视差滚动全局背景</title>
+  <style>
+    /* 基础重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 确保页面有滚动条（触发视差的前提） */
+body {
+  min-height: 200vh; /* 高度超过视口，出现滚动条 */
+  overflow-x: hidden; /* 隐藏水平滚动条 */
+}
+
+/* 全局背景容器：作为定位基准 */
+.parallax-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* 占满视口高度 */
+  overflow: hidden; /* 隐藏背景元素溢出部分 */
+}
+
+/* 视差背景元素：绝对定位重叠 */
+.parallax-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 图片自适应容器，保持比例 */
+}
+
+/* 调整背景层级（从后到前：星空→月亮→山→公路） */
+.star { z-index: 1; }
+.moon { z-index: 2; }
+.mountain { z-index: 3; }
+.road { z-index: 4; }
+
+/* 页面内容：叠加在背景最上层 */
+.page-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* 高于所有背景层 */
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+}
+  </style>
+</head>
+<body>
+  <!-- 全局视差背景容器 -->
+  <main class="parallax-container">
+    <!-- 背景层：从后到前排序（星空→月亮→山→公路） -->
+    <img src="images/star.png" alt="星空背景" class="parallax-item star">
+    <img src="images/moon.png" alt="月亮" class="parallax-item moon">
+    <img src="images/mountain.png" alt="山" class="parallax-item mountain">
+    <img src="images/road.png" alt="公路" class="parallax-item road">
+    
+    <!-- 页面内容（叠加在背景上） -->
+    <div class="page-content">
+      <h1>视差滚动全局背景示例</h1>
+      <p>滚动页面查看背景视差效果...</p>
+      <!-- 其他页面内容 -->
+    </div>
+  </main>
+
+  <script>
+    // 等待页面加载完成
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. 获取背景元素
+  const star = document.querySelector('.star');   // 星空（最慢，同方向）
+  const moon = document.querySelector('.moon');   // 月亮（斜向，反方向）
+  const mountain = document.querySelector('.mountain'); // 山（稍快，同方向）
+  const road = document.querySelector('.road');   // 公路（较快，同方向）
+
+  // 2. 监听滚动事件
+  window.addEventListener('scroll', function() {
+    // 获取滚动距离（页面向下滚动的像素值）
+    const scrollY = window.scrollY;
+
+    // 3. 控制各背景元素：通过top/left偏移实现视差
+    // 原则：scrollY×系数，系数越小速度越慢；负值=反向移动
+    // ① 星空：同方向（向上），速度最慢（系数0.5）
+    star.style.top = `${-scrollY * 0.5}px`; 
+
+    // ② 月亮：斜向（左上方），横向反向（left负值），纵向同方向
+    moon.style.top = `${-scrollY * 0.2}px`;    // 纵向：向上，速度中等
+    moon.style.left = `${-scrollY * 0.3}px`;   // 横向：向左，与滚动方向垂直
+
+    // ③ 山：同方向（向上），速度稍快（系数0.15，负值=向上）
+    mountain.style.top = `${-scrollY * 0.15}px`;
+
+    // ④ 公路：同方向（向上），速度最快（系数0.3）
+    road.style.top = `${-scrollY * 0.3}px`;
+  });
+});
+  </script>
+</body>
+</html>

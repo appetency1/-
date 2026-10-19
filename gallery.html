@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京剧脸谱 - 经典图鉴</title>
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义CSS文件 -->
+    <link rel="stylesheet" href="CSS/gallery.css">
+    <!-- Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 京剧主题色：红、黑、蓝、白、黄（对应脸谱主色调）
+                        faceRed: '#D32F2F',
+                        faceBlack: '#1A1A1A',
+                        faceBlue: '#1976D2',
+                        faceWhite: '#F5F5F5',
+                        faceYellow: '#FBC02D',
+                        // 辅助色
+                        gold: '#D4AF37',
+                        ink: '#333333',
+                    },
+                    fontFamily: {
+                        song: ['"SimSun"', 'serif'], // 宋体（贴合传统文化）
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-song">
+    <!-- 导航栏 -->
+<nav class="fixed top-0 left-0 right-0 bg-faceBlack text-white z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <!-- 左侧logo -->
+        <a href="index.html" class="text-2xl font-bold text-white flex items-center">
+            京剧脸谱
+        </a>
+        
+        <!-- 右侧导航链接 - 桌面端 -->
+        <div class="hidden md:flex space-x-8">
+            <a href="index.html" class="hover:text-red-500 transition-colors">首页</a>
+            <a href="culture.html" class="text-red-500 border-b-2 border-red-500 pb-1">文化概述</a>
+            <a href="gallery.html" class="hover:text-red-500 transition-colors">经典图鉴</a>
+            <a href="diy.html" class="hover:text-red-500 transition-colors">DIY体验</a>
+            <a href="schools.html" class="hover:text-red-500 transition-colors">脸谱流派</a>
+        </div>
+        
+        <!-- 移动端菜单按钮 -->
+        <button class="md:hidden text-white text-xl" id="menuBtn">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    
+    <!-- 移动端菜单 -->
+    <div class="md:hidden hidden bg-faceBlack/98 absolute w-full" id="mobileMenu">
+        <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+            <a href="index.html" class="hover:text-red-500 transition-colors py-2">首页</a>
+            <a href="culture.html" class="text-red-500 py-2">文化概述</a>
+            <a href="gallery.html" class="hover:text-red-500 transition-colors py-2">经典图鉴</a>
+            <a href="diy.html" class="hover:text-red-500 transition-colors py-2">DIY体验</a>
+            <a href="schools.html" class="hover:text-red-500 transition-colors py-2">脸谱流派</a>
+        </div>
+    </div>
+</nav>
+    <!-- 页面头部 -->
+    <header class="pt-24 pb-12 bg-gradient-to-b from-faceBlack/5 to-transparent">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-ink mb-4">经典脸谱图鉴</h1>
+            <p class="text-[clamp(1rem,2vw,1.2rem)] text-gray-600 max-w-3xl mx-auto">
+                汇集京剧经典脸谱形象，解读色彩与图案背后的人物性格与文化寓意
+            </p>
+        </div>
+    </header>
+
+    <!-- 筛选区域 -->
+    <section class="container mx-auto px-4 mb-12">
+        <div class="bg-white rounded-lg p-6 card-shadow">
+            <h2 class="text-xl font-bold text-ink mb-6 flex items-center">
+                <i class="fa fa-filter text-faceRed mr-2"></i>筛选条件
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 按颜色筛选 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-700">脸谱主色</h3>
+                    <div class="flex flex-wrap gap-2" id="colorFilter">
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="all">全部</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:border-faceRed transition-all" data-filter="red">红色</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 bg-gray-100 text-gray-800 hover:border-faceRed transition-all" data-filter="black">黑色</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-blue-300 bg-blue-50 text-blue-700 hover:border-faceRed transition-all" data-filter="blue">蓝色</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-yellow-300 bg-yellow-50 text-yellow-700 hover:border-faceRed transition-all" data-filter="yellow">黄色</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-600 hover:border-faceRed transition-all" data-filter="white">白色</button>
+                    </div>
+                </div>
+
+                <!-- 按人物性格筛选 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-700">人物性格</h3>
+                    <div class="flex flex-wrap gap-2" id="characterFilter">
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="all">全部</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="loyal">忠诚正义</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="brave">勇猛刚毅</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="treacherous">奸诈多疑</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="ferocious">凶狠残暴</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="wise">智慧谋略</button>
+                    </div>
+                </div>
+
+                <!-- 按剧种/角色筛选 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-700">角色类型</h3>
+                    <div class="flex flex-wrap gap-2" id="roleFilter">
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="all">全部</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="hero">正面英雄</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="villain">反面奸角</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="general">武将</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="scholar">文人</button>
+                        <button class="filter-btn px-4 py-1 rounded-full border border-gray-300 hover:border-faceRed transition-all" data-filter="monster">神怪</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="mt-6 relative">
+                <input type="text" id="searchInput" placeholder="搜索脸谱名称/人物..." 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-faceRed/50 focus:border-faceRed">
+                <button id="searchBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-faceRed transition-colors">
+                    <i class="fa fa-search text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 脸谱卡片列表 -->
+    <section class="container mx-auto px-4 mb-16">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-ink flex items-center">
+                <i class="fa fa-th text-faceRed mr-2"></i>脸谱列表
+            </h2>
+            <div class="flex gap-2">
+                <button id="gridView" class="px-3 py-1 rounded border border-gray-300 bg-white hover:bg-gray-50 transition-all">
+                    <i class="fa fa-th-large"></i> 网格
+                </button>
+                <button id="listView" class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-all">
+                    <i class="fa fa-list"></i> 列表
+                </button>
+            </div>
+        </div>
+
+        <!-- 卡片容器（默认网格布局） -->
+        <div id="faceContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- 脸谱卡片1：关羽（红-忠诚正义-正面英雄） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="red" data-character="loyal" data-role="hero" data-name="关羽">
+                <div class="relative">
+                    <img src="images/guanyu.jpg" alt="关羽脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-faceRed/90 text-white text-xs rounded-full">红色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">关羽 - 红脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>忠诚正义</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>正面英雄</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        关羽脸谱为红脸，象征忠诚、正义、耿直，额上画七星纹，代表其非凡的身份和品德。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片2：包拯（黑-忠诚正义-正面英雄） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="black" data-character="loyal" data-role="hero" data-name="包拯">
+                <div class="relative">
+                    <img src="images/baoqing.jpg" alt="包拯脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-gray-800/90 text-white text-xs rounded-full">黑色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">包拯 - 黑脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>忠诚正义</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>正面英雄</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        包拯脸谱为黑脸，象征刚正不阿、铁面无私，额上月牙纹代表“日断阳，夜断阴”的神通。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片3：曹操（白-奸诈多疑-反面奸角） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="white" data-character="treacherous" data-role="villain" data-name="曹操">
+                <div class="relative">
+                    <img src="images/caocao.jpg" alt="曹操脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-gray-100/90 text-gray-800 text-xs rounded-full border border-gray-200">白色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">曹操 - 白脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>奸诈多疑</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>反面奸角</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        曹操脸谱为白脸，象征奸诈、多疑、狡猾，面部绘有细眼和纹路，凸显其权谋家的特质。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片4：窦尔敦（蓝-勇猛刚毅-武将） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="blue" data-character="brave" data-role="general" data-name="窦尔敦">
+                <div class="relative">
+                    <img src="images/douerdun.jpg" alt="窦尔敦脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-faceBlue/90 text-white text-xs rounded-full">蓝色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">窦尔敦 - 蓝脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>勇猛刚毅</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>武将</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        窦尔敦脸谱为蓝脸，象征勇猛、刚毅、豪爽，面部绘有豹头纹，凸显其草莽英雄的气概。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片5：典韦（黄-凶狠残暴-武将） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="yellow" data-character="ferocious" data-role="general" data-name="典韦">
+                <div class="relative">
+                    <img src="images/dianwei.jpg" alt="典韦脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-faceYellow/90 text-gray-800 text-xs rounded-full">黄色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">典韦 - 黄脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>凶狠残暴</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>武将</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        典韦脸谱为黄脸，象征勇猛、凶狠、残暴，面部绘有虎纹，体现其“古之恶来”的勇猛特质。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片6：孙悟空（红+黄-勇猛刚毅-神怪） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="red" data-character="brave" data-role="monster" data-name="孙悟空">
+                <div class="relative">
+                    <img src="images/sunwukong.jpg" alt="孙悟空脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-faceRed/90 text-white text-xs rounded-full">红+黄</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">孙悟空 - 花脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>勇猛刚毅</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>神怪</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        孙悟空脸谱为花脸，主色红+黄，象征机智、勇敢、反叛，面部绘有猴纹和火眼金睛，凸显其神通广大。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片7：诸葛亮（白-智慧谋略-文人） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="white" data-character="wise" data-role="scholar" data-name="诸葛亮">
+                <div class="relative">
+                    <img src="images/zhugeliang.jpg" alt="诸葛亮脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-gray-100/90 text-gray-800 text-xs rounded-full border border-gray-200">白色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">诸葛亮 - 白脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>智慧谋略</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>文人</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        诸葛亮脸谱为白脸（俊扮），象征智慧、谋略、儒雅，面部干净无过多纹路，体现其文人谋士的气质。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+
+            <!-- 脸谱卡片8：李逵（黑-勇猛刚毅-武将） -->
+            <div class="face-card bg-white rounded-lg overflow-hidden card-shadow content-auto" 
+                 data-color="black" data-character="brave" data-role="general" data-name="李逵">
+                <div class="relative">
+                    <img src="images/likui.jpg" alt="李逵脸谱" class="w-full h-64 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-block px-2 py-1 bg-gray-800/90 text-white text-xs rounded-full">黑色</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-ink mb-1">李逵 - 黑脸</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-3 flex items-center"><i class="fa fa-tag text-faceRed mr-1"></i>勇猛刚毅</span>
+                        <span class="flex items-center"><i class="fa fa-user text-faceRed mr-1"></i>武将</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                        李逵脸谱为黑脸，象征勇猛、豪爽、鲁莽，面部绘有黑纹，体现其“黑旋风”的刚直勇猛特质。
+                    </p>
+                    <button class="view-detail w-full py-2 bg-faceBlack text-white rounded-lg hover:bg-faceRed transition-colors flex items-center justify-center gap-2">
+                        <i class="fa fa-eye"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 无结果提示 -->
+        <div id="noResult" class="hidden text-center py-12">
+            <i class="fa fa-search-minus text-5xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 text-lg">未找到符合条件的脸谱，请更换筛选条件试试~</p>
+        </div>
+    </section>
+
+    <!-- 详情模态框 -->
+    <div class="modal fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" id="detailModal">
+        <div class="modal-content bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="relative">
+                <!-- 关闭按钮 -->
+                <button id="closeModal" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-faceRed transition-colors z-10">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                <!-- 模态框内容 -->
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- 左侧图片 -->
+                    <div class="bg-gray-100">
+                        <img src="" alt="脸谱详情图" id="modalImage" class="w-full h-full object-contain p-8">
+                    </div>
+
+                    <!-- 右侧信息 -->
+                    <div class="p-6 md:p-8">
+                        <h3 class="text-2xl font-bold text-ink mb-2" id="modalName">脸谱名称</h3>
+                        <div class="flex flex-wrap gap-2 mb-6" id="modalTags">
+                            <!-- 标签将通过JS动态添加 -->
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">人物简介</h4>
+                                <p class="text-gray-600" id="modalIntro">
+                                    人物简介内容将通过JS动态加载...
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">脸谱寓意</h4>
+                                <p class="text-gray-600" id="modalMeaning">
+                                    脸谱寓意内容将通过JS动态加载...
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">相关剧目</h4>
+                                <p class="text-gray-600" id="modalDrama">
+                                    相关剧目内容将通过JS动态加载...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-faceBlack text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-4 flex items-center">
+                        <i class="fa fa-mask mr-2"></i>京剧脸谱文化
+                    </h3>
+                    <p class="text-gray-400">
+                        传承经典，弘扬国粹。让更多人了解京剧脸谱的文化内涵与艺术魅力。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-gold transition-colors">首页</a></li>
+                        <li><a href="culture.html" class="hover:text-gold transition-colors">文化内涵</a></li>
+                        <li><a href="gallery.html" class="hover:text-gold transition-colors">经典图鉴</a></li>
+                        <li><a href="diy.html" class="hover:text-gold transition-colors">脸谱DIY</a></li>
+                        <li><a href="about.html" class="hover:text-gold transition-colors">关于我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fa fa-envelope mr-2"></i> contact@lianpu.com</li>
+                        <li class="flex items-center"><i class="fa fa-phone mr-2"></i> 123-4567-8910</li>
+                        <li class="flex items-center"><i class="fa fa-map-marker mr-2"></i> 北京市朝阳区国粹文化中心</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>© 2025 京剧脸谱文化网 版权所有 | 京ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入JavaScript文件 -->
+    <script src="JavaScript/gallery.js"></script>
+</body>
+</html>
